@@ -12,13 +12,6 @@
 [build.environment]
   NODE_ENV = "production"
 
-# API proxy configuration
-[[redirects]]
-  from = "/api/*"
-  to = "https://your-backend-url.com/api/:splat"
-  status = 200
-  force = true
-
 # Fallback route for SPA (client-side routing)
 [[redirects]]
   from = "/*"
