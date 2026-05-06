@@ -1,0 +1,24 @@
+# Netlify Configuration for React Frontend
+
+[build]
+  # Build command
+  command = "cd frontend && npm install && npm run build"
+  # Directory to deploy
+  publish = "frontend/dist"
+
+# Environment variables - set these in Netlify dashboard
+[build.environment]
+  NODE_ENV = "production"
+
+# API proxy configuration
+[[redirects]]
+  from = "/api/*"
+  to = "https://your-backend-url.com/api/:splat"
+  status = 200
+  force = true
+
+# Fallback route for SPA (client-side routing)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
