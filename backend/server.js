@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import path, { dirname } from 'path';
 
 // Import routes
 import faceAnalysisRoutes from './routes/faceAnalysis.js';
@@ -45,6 +45,21 @@ app.use('/api/wardrobe', wardrobeRoutes);
 app.use('/api/recommendations', recommendationsRoutes);
 app.use('/api/cloth', clothRoutes);
 
+// Serve frontend static files in production when available
+const frontendDist = path.join(__dirname, '../frontend/dist');
+app.use(express.static(frontendDist));
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api/')) {
+    return next();
+  }
+
+  const indexFile = path.join(frontendDist, 'index.html');
+  res.sendFile(indexFile, (err) => {
+    if (err) {
+      next(err);
+    }
+  });
+});
 
 // 404 handler
 app.use((req, res) => {
