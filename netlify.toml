@@ -1,12 +1,14 @@
-# Netlify Configuration for React Frontend
+# Netlify Configuration for React Vite Frontend (in /frontend folder)
 
 [build]
-  # Build command
-  command = "cd frontend && npm install && npm run build"
-  # Directory to deploy
-  publish = "frontend/dist"
+  # Base directory - where npm install runs from
+  base = "frontend"
+  # Build command (runs from frontend directory)
+  command = "npm run build"
+  # Directory to deploy (relative to base)
+  publish = "dist"
 
-# Environment variables - set these in Netlify dashboard
+# Environment variables
 [build.environment]
   NODE_ENV = "production"
 
